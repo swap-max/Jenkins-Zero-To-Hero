@@ -1,15 +1,17 @@
 pipeline {
-  agent any
-  
-  stages {
-    stage('Test') {
-      steps {
-        script {
-          docker.image('node:16-alpine').inside {
-            sh 'node --version'
-          }
+    agent any
+    
+    stages {
+        stage('Test') {
+            steps {
+                script {
+                    // Pull the Node.js image
+                    sh 'docker pull node:16-alpine'
+
+                    // Run a Docker container and execute a command inside it
+                    sh 'docker run --rm node:16-alpine node --version'
+                }
+            }
         }
-      }
     }
-  }
 }
